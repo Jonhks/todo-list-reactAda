@@ -1,4 +1,4 @@
-const Form = ({setTodos, todos, inputText, setInputText}) => {
+const Form = ({setTodos, todos, inputText, setInputText, setStatus}) => {
 
   const submitTodoHandler = e => {
     e.preventDefault();
@@ -12,6 +12,10 @@ const Form = ({setTodos, todos, inputText, setInputText}) => {
 
   const inputTextHandler = e => {
     setInputText(e.target.value);
+  }
+
+  const statusHandler = event => {
+    setStatus(event.target.value);
   }
 
   return(
@@ -34,6 +38,7 @@ const Form = ({setTodos, todos, inputText, setInputText}) => {
         <select
           name="todos" 
           className="filter-todo"
+          onChange={statusHandler}
         >
           <option value="all">Todas</option>
           <option value="completed">Completas</option>
