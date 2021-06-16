@@ -1,3 +1,5 @@
+import {db} from '../firebase-config';
+
 const Form = ({setTodos, todos, inputText, setInputText, setStatus}) => {
 
   const submitTodoHandler = e => {
@@ -7,6 +9,11 @@ const Form = ({setTodos, todos, inputText, setInputText, setStatus}) => {
       completed: false,
       id: Math.random() * 10000
     }])
+    guardarEnFirebase({
+      text: inputText,
+      completed: false,
+      id: Math.random() * 10000
+    })
     setInputText('')
   }
 
@@ -16,6 +23,17 @@ const Form = ({setTodos, todos, inputText, setInputText, setStatus}) => {
 
   const statusHandler = event => {
     setStatus(event.target.value);
+  }
+
+  const guardarEnFirebase = tarea => {
+    // Add a new document with a generated id.
+    db.collection("todos").add(tarea)
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
   }
 
   return(
