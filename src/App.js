@@ -55,6 +55,7 @@ function App() {
         inputText={inputText}
         setInputText={setInputText}
         setStatus={setStatus}
+        status={status}
       />
       <TodoList 
         todos={todos}
