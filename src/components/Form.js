@@ -1,3 +1,6 @@
+import {db} from '../firebase-config';
+
+const Form = ({setTodos, todos, inputText, setInputText, setStatus}) => {
 import {makeStyles} from '@material-ui/core/styles';
 import {
   FormControl,
@@ -36,15 +39,18 @@ const Form = ({setTodos, todos, inputText, setInputText, setStatus, status}) => 
 
   const classes = useStyles();
 
-  const submitTodoHandler = e => {
+const submitTodoHandler = e => {
     e.preventDefault();
-    setTodos([
-      ...todos, {
-        text: inputText,
-        completed: false,
-        id: Math.random() * 10000
-      }
-    ])
+    setTodos([...todos, {
+      text: inputText,
+      completed: false,
+      id: Math.random() * 10000
+    }])
+    guardarEnFirebase({
+      text: inputText,
+      completed: false,
+      id: Math.random() * 10000
+    })
     setInputText('')
   }
 
@@ -54,6 +60,17 @@ const Form = ({setTodos, todos, inputText, setInputText, setStatus, status}) => 
 
   const statusHandler = event => {
     setStatus(event.target.value);
+  }
+
+  const guardarEnFirebase = tarea => {
+    // Add a new document with a generated id.
+    db.collection("todos").add(tarea)
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
   }
 
   return (
