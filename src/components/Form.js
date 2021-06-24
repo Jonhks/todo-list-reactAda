@@ -1,6 +1,4 @@
 import {db} from '../firebase-config';
-
-const Form = ({setTodos, todos, inputText, setInputText, setStatus}) => {
 import {makeStyles} from '@material-ui/core/styles';
 import {
   FormControl,
@@ -54,13 +52,9 @@ const submitTodoHandler = e => {
     setInputText('')
   }
 
-  const inputTextHandler = e => {
-    setInputText(e.target.value);
-  }
+  const inputTextHandler = e => setInputText(e.target.value);
 
-  const statusHandler = event => {
-    setStatus(event.target.value);
-  }
+  const statusHandler = event => setStatus(event.target.value);
 
   const guardarEnFirebase = tarea => {
     // Add a new document with a generated id.
@@ -118,6 +112,7 @@ const submitTodoHandler = e => {
           <FormControl className={classes.formControl}>
             <InputLabel id="demo-simple-select-label">Seleccionar</InputLabel>
             <Select
+              name="todos"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               onChange={statusHandler}

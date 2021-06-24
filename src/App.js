@@ -13,30 +13,19 @@ function App() {
   const [filteredTodos, setFilteredTodos] = useState([]);
 
   const traerDesdeFirebase = () => {
-    db.collection("todos").get().then((querySnapshot) => {
+    console.log('useEffect')
+    db.collection("todos").onSnapshot((querySnapshot) => {
       const docs = [];
       querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          // console.log(doc.id, " => ", doc.data());
           docs.push({...doc.data(), id: doc.id})
         });
         setTodos(docs)
     });
   }
 
-  useEffect(() => {
-    // const getLocalTodos = () => {
-    //   if(localStorage.getItem('todos') == null){
-    //     localStorage.setItem('todos', JSON.stringify(todos))
-    //   } else {
-    //     const todoLocal = JSON.parse(localStorage.getItem('todos'))
-    //     setTodos(todoLocal)
-    //   }
-    // }
-    // getLocalTodos();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  traerDesdeFirebase();
-  },[todos])
+  useEffect(traerDesdeFirebase, [])
+
+ 
 
   useEffect(() => {
     const filteredHandler = () => {
@@ -51,11 +40,7 @@ function App() {
           setFilteredTodos(todos);
       }
     }
-    // const saveLocalTodos = () => {
-    //   localStorage.setItem('todos', JSON.stringify(todos))
-    // }
     filteredHandler();
-    // saveLocalTodos();
   },[todos, status])
 
 
