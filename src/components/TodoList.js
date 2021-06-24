@@ -18,5 +18,3 @@ const TodoList = ({filteredTodos}) => {
 };
 
 export default TodoList;
-
-
