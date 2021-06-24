@@ -10,9 +10,8 @@ const Todo = ({todo}) => {
     });
   }
 
-  const completeHandler = () => {
-    editarCompleted(todo)
-  }
+  const completeHandler = () => editarCompleted(todo)
+  
 
   const editarCompleted = tarea => {
     // Add a new document in collection "cities"
